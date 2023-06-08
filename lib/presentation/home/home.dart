@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
+import 'MainTitleCard.dart';
+import 'NumberWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,8 +9,27 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text(
-        'Home',
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: const [
+              MainTitleCard(
+                title: 'Released in past years',
+              ),
+              MainTitleCard(
+                title: 'Tending Now',
+              ),
+              NumberWidget(),
+              MainTitleCard(
+                title: 'Tense Dramas',
+              ),
+              MainTitleCard(
+                title: 'South Indian Cinema',
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
