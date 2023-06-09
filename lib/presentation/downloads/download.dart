@@ -67,7 +67,7 @@ class Section2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
 
     return Column(
       children: [
@@ -85,32 +85,32 @@ class Section2 extends StatelessWidget {
         ),
         height30,
         SizedBox(
-          width: _screenSize.width,
+          width: screenSize.width,
           child: Stack(
             alignment: Alignment.center,
             children: [
               CircleAvatar(
-                radius: _screenSize.width * 0.42,
+                radius: screenSize.width * 0.42,
                 backgroundColor: Colors.grey.withOpacity(0.5),
               ),
               DownloadImageList(
                 image: imageList[0],
                 rotationAngle: 10,
-                margin: EdgeInsets.only(left: 180, bottom: 10),
-                size: Size(_screenSize.width * 0.30, _screenSize.height * 0.30),
+                margin: const EdgeInsets.only(left: 180, bottom: 10),
+                size: Size(screenSize.width * 0.30, screenSize.height * 0.30),
                 borderRadius: 7,
               ),
               DownloadImageList(
                 image: imageList[1],
                 rotationAngle: -10,
-                margin: EdgeInsets.only(right: 180, bottom: 10),
-                size: Size(_screenSize.width * 0.30, _screenSize.height * 0.30),
+                margin: const EdgeInsets.only(right: 180, bottom: 10),
+                size: Size(screenSize.width * 0.30, screenSize.height * 0.30),
                 borderRadius: 7,
               ),
               DownloadImageList(
                 image: imageList[2],
-                margin: EdgeInsets.only(left: 0),
-                size: Size(_screenSize.width * 0.48, _screenSize.height * 0.34),
+                margin: const EdgeInsets.only(left: 0),
+                size: Size(screenSize.width * 0.48, screenSize.height * 0.34),
                 borderRadius: 7,
               ),
             ],
@@ -186,7 +186,6 @@ class DownloadImageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenSize = MediaQuery.of(context).size;
     return Transform.rotate(
       angle: rotationAngle * pi / 100,
       child: ClipRRect(

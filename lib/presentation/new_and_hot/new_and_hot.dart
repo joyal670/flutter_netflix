@@ -1,14 +1,212 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix/core/colors/colors.dart';
+import 'package:netflix/presentation/home/CustomButtonWidget.dart';
+
+import '../../core/dims/dims.dart';
 
 class NewAndHotScreen extends StatelessWidget {
   const NewAndHotScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('Home'),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBarWidget(),
+        body: TabBarView(
+          children: [
+            _tabCommingSoon(),
+            _tabEveryOneWatching(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  PreferredSize AppBarWidget() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(100),
+      child: AppBar(
+        title: Text(
+          'New & hot',
+          style:
+              GoogleFonts.montserrat(fontSize: 30, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              iconSize: 30,
+              icon: const Icon(
+                Icons.cast,
+                color: Colors.white,
+              )),
+          kWidth,
+          Container(
+            width: 30,
+            height: 30,
+            color: Colors.blue,
+          ),
+          kWidth
+        ],
+        bottom: TabBar(
+          isScrollable: true,
+          tabs: const [
+            Tab(
+              text: '🍿 Comming Soon',
+            ),
+            Tab(
+              text: "👀 Everyone's watching",
+            )
+          ],
+          indicator: BoxDecoration(
+            color: colorWhite,
+            borderRadius: radius30,
+          ),
+          labelColor: colorBlack,
+          labelStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelColor: colorWhite,
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+        ),
+      ),
+    );
+  }
+
+  Widget _tabEveryOneWatching() {
+    return const SizedBox(
+      height: 10,
+    );
+  }
+
+  Widget _tabCommingSoon() {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, index) {
+          return const ListItemViewOneWidget();
+        });
+  }
+}
+
+class ListItemViewOneWidget extends StatelessWidget {
+  const ListItemViewOneWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 70,
+            height: 400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                Text(
+                  'FEB',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+                Text(
+                  '11',
+                  style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 4,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: size.width - 70,
+            height: 400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 200,
+                      child: Image.network(
+                        'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.black.withOpacity(0.5),
+                        radius: 20,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.volume_off,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                kHeight,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      'John Wick',
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    CustomButtonWidget(
+                      iconData: Icons.notifications,
+                      title: "Remind me",
+                      iconSize: 20,
+                      titleSize: 10,
+                    ),
+                    kWidth,
+                    CustomButtonWidget(
+                      iconData: Icons.info,
+                      title: "Info",
+                      iconSize: 20,
+                      titleSize: 10,
+                    ),
+                    kWidth
+                  ],
+                ),
+                kHeight,
+                const Text('Comming on Firday'),
+                kHeight,
+                const Text(
+                  'John Wick ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                kHeight,
+                const Text(
+                  'Landing in the school musical is a dream come true for Jodi, until the pressure sends her confidence - and here relationship - into a tailspain.',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

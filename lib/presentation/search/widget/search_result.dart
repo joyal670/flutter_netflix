@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netflix/core/dims/dims.dart';
 import 'package:netflix/presentation/search/widget/search_title.dart';
 
-final imageList =
+const imageList =
     "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg";
 
 class SearchResultWidget extends StatelessWidget {
@@ -39,8 +39,8 @@ class MainMovieCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
-        image:
-            DecorationImage(image: NetworkImage(imageList), fit: BoxFit.cover),
+        image: const DecorationImage(
+            image: NetworkImage(imageList), fit: BoxFit.cover),
       ),
     );
   }

@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:netflix/core/dims/dims.dart';
 import 'package:netflix/presentation/search/widget/search_title.dart';
 
-final imageUrl =
+const imageUrl =
     'https://www.themoviedb.org/t/p/w533_and_h300_bestv2/rH3jY9JN9krUyE0Q3WLNtujMs8.jpg';
 
 class SearchIdleWidget extends StatelessWidget {
-  SearchIdleWidget({super.key});
+  const SearchIdleWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class SearchIdleWidget extends StatelessWidget {
         kHeight,
         Expanded(
           child: ListView.separated(
-              itemBuilder: (ctx, index) => TopSearchItem(),
+              itemBuilder: (ctx, index) => const TopSearchItem(),
               separatorBuilder: (ctx, index) => height30,
               itemCount: 10),
         )
@@ -35,13 +33,13 @@ class TopSearchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _screenWidgth = MediaQuery.of(context).size.width;
+    final screenWidgth = MediaQuery.of(context).size.width;
     return Row(
       children: [
         Container(
-          width: _screenWidgth * 0.4,
+          width: screenWidgth * 0.4,
           height: 90,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(imageUrl), fit: BoxFit.cover)),
         ),

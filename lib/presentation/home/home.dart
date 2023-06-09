@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/core/dims/dims.dart';
 
+import 'CustomButtonWidget.dart';
 import 'MainTitleCard.dart';
 import 'NumberWidget.dart';
 
@@ -166,36 +167,6 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(fontSize: 20, color: colorBlack),
         ),
       ),
-    );
-  }
-}
-
-class CustomButtonWidget extends StatelessWidget {
-  final IconData iconData;
-  final String title;
-  const CustomButtonWidget({
-    super.key,
-    required this.iconData,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Icon(
-          iconData,
-          color: colorWhite,
-          size: 25,
-        ),
-        Text(
-          title,
-          style: const TextStyle(
-            color: colorWhite,
-            fontSize: 18,
-          ),
-        )
-      ],
     );
   }
 }

@@ -14,7 +14,7 @@ class MainCardItem extends StatelessWidget {
       height: 250,
       decoration: BoxDecoration(
           borderRadius: radius10,
-          image: DecorationImage(
+          image: const DecorationImage(
               image: NetworkImage(
                   'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg'))),
     );

@@ -11,9 +11,9 @@ class Dashboard extends StatelessWidget {
   Dashboard({super.key});
   final _pages = [
     HomeScreen(),
-    NewAndHotScreen(),
-    FastLaughsScreen(),
-    SearchScreen(),
+    const NewAndHotScreen(),
+    const FastLaughsScreen(),
+    const SearchScreen(),
     DownloadScreen()
   ];
 
@@ -29,7 +29,7 @@ class Dashboard extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: BottomNavigationWidget(),
+      bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }
