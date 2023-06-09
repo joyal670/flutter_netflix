@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix/core/colors/colors.dart';
 import 'package:netflix/presentation/home/CustomButtonWidget.dart';
+import 'package:netflix/presentation/new_and_hot/videoWidget.dart';
 
 import '../../core/dims/dims.dart';
 
@@ -76,9 +77,12 @@ class NewAndHotScreen extends StatelessWidget {
   }
 
   Widget _tabEveryOneWatching() {
-    return const SizedBox(
-      height: 10,
-    );
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, index) {
+          return const ListItemViewTwoWidget();
+        });
   }
 
   Widget _tabCommingSoon() {
@@ -88,6 +92,68 @@ class NewAndHotScreen extends StatelessWidget {
         itemBuilder: (BuildContext context, index) {
           return const ListItemViewOneWidget();
         });
+  }
+}
+
+class ListItemViewTwoWidget extends StatelessWidget {
+  const ListItemViewTwoWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          kHeight,
+          const Text(
+            'Friends',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          kHeight,
+          const Text(
+            'This hit sitcom follws the merry misadventures of six 20-something plas as they navigate the pitfalls of the work, life and love in 1990s Manhattan',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
+          height50,
+          const VideoWidget(),
+          height5,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              CustomButtonWidget(
+                iconData: Icons.share,
+                title: "Share",
+                iconSize: 25,
+                titleSize: 16,
+              ),
+              kWidth,
+              CustomButtonWidget(
+                iconData: Icons.add,
+                title: "My list",
+                iconSize: 25,
+                titleSize: 16,
+              ),
+              kWidth,
+              CustomButtonWidget(
+                iconData: Icons.play_arrow,
+                title: "Play",
+                iconSize: 25,
+                titleSize: 16,
+              ),
+              kWidth
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -131,34 +197,7 @@ class ListItemViewOneWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: Image.network(
-                        'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 10,
-                      right: 10,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.black.withOpacity(0.5),
-                        radius: 20,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.volume_off,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                VideoWidget(),
                 kHeight,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
