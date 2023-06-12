@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix/application/bloc/bloc_search_bloc.dart';
 import 'package:netflix/application/bloc_download/downloads_bloc_bloc.dart';
 import 'package:netflix/domain/core/di/injectable.dart';
 import 'package:netflix/presentation/dashboard/widgets/dashboard.dart';
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<DownloadsBlocBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<BlocSearchBloc>(),
         ),
       ],
       child: MaterialApp(
