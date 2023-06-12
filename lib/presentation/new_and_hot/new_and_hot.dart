@@ -102,13 +102,13 @@ class ListItemViewTwoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           kHeight,
-          const Text(
+          Text(
             'Friends',
             style: TextStyle(
               fontSize: 20,
@@ -116,18 +116,18 @@ class ListItemViewTwoWidget extends StatelessWidget {
             ),
           ),
           kHeight,
-          const Text(
+          Text(
             'This hit sitcom follws the merry misadventures of six 20-something plas as they navigate the pitfalls of the work, life and love in 1990s Manhattan',
             style: TextStyle(
               color: Colors.grey,
             ),
           ),
           height50,
-          const VideoWidget(),
+          VideoWidget(),
           height5,
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
+            children: [
               CustomButtonWidget(
                 iconData: Icons.share,
                 title: "Share",
@@ -169,13 +169,13 @@ class ListItemViewOneWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 70,
             height: 400,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'FEB',
                   style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -194,14 +194,14 @@ class ListItemViewOneWidget extends StatelessWidget {
           SizedBox(
             width: size.width - 70,
             height: 400,
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 VideoWidget(),
                 kHeight,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       'John Wick',
                       style:
@@ -225,9 +225,9 @@ class ListItemViewOneWidget extends StatelessWidget {
                   ],
                 ),
                 kHeight,
-                const Text('Comming on Firday'),
+                Text('Comming on Firday'),
                 kHeight,
-                const Text(
+                Text(
                   'John Wick ',
                   style: TextStyle(
                     fontSize: 16,
@@ -235,7 +235,7 @@ class ListItemViewOneWidget extends StatelessWidget {
                   ),
                 ),
                 kHeight,
-                const Text(
+                Text(
                   'Landing in the school musical is a dream come true for Jodi, until the pressure sends her confidence - and here relationship - into a tailspain.',
                   style: TextStyle(
                     color: Colors.grey,

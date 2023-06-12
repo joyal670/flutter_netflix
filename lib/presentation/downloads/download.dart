@@ -16,7 +16,7 @@ class DownloadScreen extends StatelessWidget {
 
   final widgetList = [
     const SmartDownloadWidget(),
-    Section2(),
+    const Section2(),
     const Section3()
   ];
 
@@ -60,7 +60,7 @@ class SmartDownloadWidget extends StatelessWidget {
 }
 
 class Section2 extends StatelessWidget {
-  Section2({super.key});
+  const Section2({super.key});
 
   @override
   Widget build(BuildContext context) {

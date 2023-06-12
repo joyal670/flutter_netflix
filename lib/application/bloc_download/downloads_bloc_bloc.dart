@@ -1,17 +1,16 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 import 'package:netflix/domain/downloads/repo/download_repo.dart';
 
 import '../../domain/downloads/models/downloads.dart';
 import '../../domain/failures/main_failure.dart';
 
+part 'downloads_bloc_bloc.freezed.dart';
 part 'downloads_bloc_event.dart';
 part 'downloads_bloc_state.dart';
-part 'downloads_bloc_bloc.freezed.dart';
 
 @Injectable()
 class DownloadsBlocBloc extends Bloc<DownloadEvents, DownloadsState> {

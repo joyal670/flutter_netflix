@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../core/dims/dims.dart';
 import '../search/widget/search_title.dart';

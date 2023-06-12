@@ -31,9 +31,9 @@ class VideoListItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: CircleAvatar(
