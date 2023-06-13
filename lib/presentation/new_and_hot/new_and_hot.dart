@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix/application/bloc_hot_and_new/hot_and_new_bloc_bloc.dart';
 import 'package:netflix/core/colors/colors.dart';
+import 'package:netflix/core/strings/string.dart';
 import 'package:netflix/presentation/home/CustomButtonWidget.dart';
 import 'package:netflix/presentation/new_and_hot/videoWidget.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/dims/dims.dart';
 
@@ -15,10 +19,12 @@ class NewAndHotScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBarWidget(),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            _tabCommingSoon(),
-            _tabEveryOneWatching(),
+            CommingSoonList(
+              key: Key('comming_soon'),
+            ),
+            EveryOneWatching(),
           ],
         ),
       ),
@@ -75,29 +81,86 @@ class NewAndHotScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _tabEveryOneWatching() {
+class EveryOneWatching extends StatelessWidget {
+  const EveryOneWatching({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: 10,
         itemBuilder: (BuildContext context, index) {
-          return const ListItemViewTwoWidget();
-        });
-  }
-
-  Widget _tabCommingSoon() {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: 10,
-        itemBuilder: (BuildContext context, index) {
-          return const ListItemViewOneWidget();
+          return SizedBox();
         });
   }
 }
 
+class CommingSoonList extends StatelessWidget {
+  const CommingSoonList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      BlocProvider.of<HotAndNewBlocBloc>(context).add(LoadCommingSoon());
+    });
+
+    return BlocBuilder<HotAndNewBlocBloc, HotAndNewBlocState>(
+      builder: (context, state) {
+        if (state.isLoading) {
+          return CircularProgressIndicator();
+        } else if (state.isError) {
+          return const Center(child: Text('Error while fetching data'));
+        } else if (state.commingSoon.isEmpty) {
+          return const Center(child: Text('No Data at this moment'));
+        } else {
+          return ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.commingSoon.length,
+              itemBuilder: (BuildContext context, index) {
+                final movie = state.commingSoon[index];
+
+                String month = '';
+                String day = '';
+                try {
+                  final date = DateTime.parse(movie.releaseDate!);
+                  final formattedDate = DateFormat.yMMMd('en_US').format(date);
+                  month = formattedDate
+                      .split(' ')
+                      .first
+                      .substring(0, 3)
+                      .toUpperCase();
+                  day = movie.releaseDate!.split('-')[1];
+                } catch (_) {
+                  month = "";
+                  day = '';
+                }
+                return ListItemViewOneWidget(
+                  id: movie.id.toString(),
+                  month: month,
+                  day: day,
+                  posterPath: imageBaseUrl + movie.posterPath!,
+                  movieName: movie.originalTitle ?? 'no title',
+                  description: movie.overview ?? 'no description',
+                );
+              });
+        }
+      },
+    );
+  }
+}
+
 class ListItemViewTwoWidget extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const ListItemViewTwoWidget({
     super.key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   });
 
   @override
@@ -123,7 +186,9 @@ class ListItemViewTwoWidget extends StatelessWidget {
             ),
           ),
           height50,
-          VideoWidget(),
+          VideoWidget(
+            imageUrl: '',
+          ),
           height5,
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -158,8 +223,21 @@ class ListItemViewTwoWidget extends StatelessWidget {
 }
 
 class ListItemViewOneWidget extends StatelessWidget {
+  final String id;
+  final String month;
+  final String day;
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const ListItemViewOneWidget({
     super.key,
+    required this.id,
+    required this.month,
+    required this.day,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
   });
 
   @override
@@ -169,7 +247,7 @@ class ListItemViewOneWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         children: [
-          const SizedBox(
+          SizedBox(
             width: 70,
             height: 400,
             child: Column(
@@ -177,12 +255,12 @@ class ListItemViewOneWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'FEB',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  month,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 Text(
-                  '11',
-                  style: TextStyle(
+                  day,
+                  style: const TextStyle(
                     fontSize: 30,
                     letterSpacing: 4,
                     fontWeight: FontWeight.bold,
@@ -194,28 +272,33 @@ class ListItemViewOneWidget extends StatelessWidget {
           SizedBox(
             width: size.width - 70,
             height: 400,
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                VideoWidget(),
+                VideoWidget(
+                  imageUrl: posterPath,
+                ),
                 kHeight,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'John Wick',
-                      style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Text(
+                        movieName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Spacer(),
-                    CustomButtonWidget(
+                    const CustomButtonWidget(
                       iconData: Icons.notifications,
                       title: "Remind me",
                       iconSize: 20,
                       titleSize: 10,
                     ),
                     kWidth,
-                    CustomButtonWidget(
+                    const CustomButtonWidget(
                       iconData: Icons.info,
                       title: "Info",
                       iconSize: 20,
@@ -225,19 +308,22 @@ class ListItemViewOneWidget extends StatelessWidget {
                   ],
                 ),
                 kHeight,
-                Text('Comming on Firday'),
+                Text('Comming on $day $month'),
                 kHeight,
                 Text(
-                  'John Wick ',
-                  style: TextStyle(
+                  movieName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 kHeight,
                 Text(
-                  'Landing in the school musical is a dream come true for Jodi, until the pressure sends her confidence - and here relationship - into a tailspain.',
-                  style: TextStyle(
+                  description,
+                  maxLines: 4,
+                  style: const TextStyle(
                     color: Colors.grey,
                   ),
                 )

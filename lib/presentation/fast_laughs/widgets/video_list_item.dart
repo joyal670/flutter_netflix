@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflix/application/bloc_fast_laugh/fast_laugh_bloc.dart';
 import 'package:netflix/core/strings/string.dart';
 import 'package:netflix/domain/downloads/models/downloads.dart';
@@ -68,7 +67,7 @@ class _VideoListItemState extends State<VideoListItem> {
                       if (value) {
                         return IconButton(
                           onPressed: () {
-                            videoPlayerController.setVolume(1);
+                            videoPlayerController.setVolume(1.0);
                             isAudioNotifier.value = false;
                           },
                           icon: const Icon(
@@ -80,7 +79,7 @@ class _VideoListItemState extends State<VideoListItem> {
                       } else {
                         return IconButton(
                           onPressed: () {
-                            videoPlayerController.setVolume(0);
+                            videoPlayerController.setVolume(0.0);
                             isAudioNotifier.value = true;
                           },
                           icon: const Icon(
