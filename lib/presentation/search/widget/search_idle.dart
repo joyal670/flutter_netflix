@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:netflix/application/bloc/bloc_search_bloc.dart';
 import 'package:netflix/core/dims/dims.dart';
 import 'package:netflix/core/strings/string.dart';
 import 'package:netflix/presentation/search/widget/search_title.dart';
+
+import '../../../application/bloc_search/bloc_search_bloc.dart';
 
 class SearchIdleWidget extends StatelessWidget {
   const SearchIdleWidget({super.key});
